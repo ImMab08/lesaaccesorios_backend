@@ -22,7 +22,7 @@ public class UsuarioController {
     @GetMapping("info")
     public ResponseEntity<?> getUsuarioInfo(Authentication authentication) {
         try {
-            UsuarioDTO getUsuarioInfo= usuarioService.getUsuario(authentication);
+            UsuarioDTO getUsuarioInfo = usuarioService.getUsuario(authentication);
             return ResponseEntity.ok(getUsuarioInfo);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al obtener la informaicón del usaurio");
