@@ -15,7 +15,7 @@ public class DetallePedido {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_detalle_pedido", nullable = false)
-    private Integer id_detalle_pedido;
+    private Integer id;
 
     @Column(name = "cantidad", nullable = false)
     private Integer cantidad;

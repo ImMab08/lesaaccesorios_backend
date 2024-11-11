@@ -30,7 +30,7 @@ public class Cliente {
     private String cliente_email;
 
     @Column(name = "direccion", nullable = false)
-    private String direccion_email;
+    private String cliente_direccion;
 
     @Column(name = "telefono", nullable = false)
     private String telefono;

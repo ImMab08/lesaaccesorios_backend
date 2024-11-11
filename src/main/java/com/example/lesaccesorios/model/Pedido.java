@@ -10,16 +10,13 @@ import java.util.List;
 @Data
 @Setter
 @Entity
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
 @Table(name = "pedido", schema = "lesaccesorios_db")
 public class Pedido {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_pedido", nullable = false)
-    private Integer id_pedido;
+    private Integer id;
 
     @Column(name = "fecha_pedido", nullable = false)
     private LocalDateTime fecha_pedido;
