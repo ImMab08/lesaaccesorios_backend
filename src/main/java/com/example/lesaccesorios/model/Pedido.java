@@ -37,8 +37,4 @@ public class Pedido {
     @JsonIgnore
     private List<DetallePedido> detallePedido;
 
-    @OneToOne(mappedBy = "pedido", cascade = CascadeType.ALL)
-    @JsonIgnore
-    private Cliente cliente;
-
 }

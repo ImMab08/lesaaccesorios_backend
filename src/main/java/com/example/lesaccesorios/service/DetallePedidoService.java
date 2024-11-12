@@ -43,7 +43,7 @@ public class DetallePedidoService {
             throw new RuntimeException("Acceso denegado: no puedes ver los detalles de un pedido que no te pertenece");
         }
 
-        return detallePedidoRepository.findByPedidoId(id_pedido); // Cambia a este método si lo descomentaste
+        return detallePedidoRepository.findByPedidoId(id_pedido);
     }
 
     // Crear nuevos detalles de pedido.
@@ -53,7 +53,7 @@ public class DetallePedidoService {
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
         // Buscamos el pedido correspondiente.
-        int id_pedido = detallesPedidoDTO.get(0).getId_pedido(); // Suponiendo que todos los detalles son para el mismo pedido
+        int id_pedido = detallesPedidoDTO.get(0).getId_pedido();
         Pedido pedido = usuario.getPedido()
                 .stream()
                 .filter(p -> p.getId().equals(id_pedido))

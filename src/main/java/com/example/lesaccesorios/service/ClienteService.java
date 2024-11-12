@@ -27,7 +27,6 @@ public class ClienteService {
         return clientes;
     }
 
-
     // Crear cliente
     public Cliente createCliente(Cliente cliente, Authentication authentication) {
         String email = authentication.getName();

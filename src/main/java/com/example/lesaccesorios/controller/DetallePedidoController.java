@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@RestController
+@CrossOrigin(value = "http://localhost:3000", allowCredentials = "true")
+@RequestMapping("/v01/detallespedido/")
 public class DetallePedidoController {
 
     @Autowired

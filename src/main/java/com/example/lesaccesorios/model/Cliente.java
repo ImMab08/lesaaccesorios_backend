@@ -40,11 +40,6 @@ public class Cliente {
     @JsonIgnore
     private Usuario usuario;
 
-    @OneToOne(fetch =  FetchType.LAZY)
-    @JoinColumn(name = "id_pedido", referencedColumnName = "id_pedido", nullable = false)
-    @JsonIgnore
-    private Pedido pedido;
-
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Factura> factura;
