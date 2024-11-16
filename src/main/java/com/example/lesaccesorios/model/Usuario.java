@@ -36,6 +36,11 @@ public class Usuario implements UserDetails {
     @Column(name = "password", nullable = false)
     private String password;
 
+    @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
+    @JsonIgnore
+    @ToString.Exclude
+    private List<Articulo> articulo;
+
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     @JsonIgnore
     @ToString.Exclude

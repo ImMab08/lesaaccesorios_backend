@@ -42,6 +42,11 @@ public class Producto {
     @JsonIgnore
     private Usuario usuario;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_articulo", referencedColumnName = "id_articulo", nullable = false)
+    @JsonIgnore
+    private Articulo articulo;
+
     @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<DetallePedido> detallePedido;
