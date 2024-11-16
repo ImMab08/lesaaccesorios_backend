@@ -2,8 +2,10 @@ package com.example.lesaccesorios.service;
 
 import com.example.lesaccesorios.dto.detallePedido.DetallePedidoDTO;
 import com.example.lesaccesorios.dto.pedido.PedidoDTO;
+import com.example.lesaccesorios.model.Cliente;
 import com.example.lesaccesorios.model.Pedido;
 import com.example.lesaccesorios.model.Usuario;
+import com.example.lesaccesorios.repository.ClienteRepository;
 import com.example.lesaccesorios.repository.DetallePedidoRepository;
 import com.example.lesaccesorios.repository.PedidoRepository;
 import com.example.lesaccesorios.repository.UsuarioRepository;
@@ -25,6 +27,8 @@ public class PedidoService {
     @Autowired
     private UsuarioRepository usuarioRepository;
     @Autowired
+    private ClienteRepository clienteRepository;
+    @Autowired
     private DetallePedidoRepository detallePedidoRepository;
 
     // Obtener un pedido por su ID y verificar que pertenece al usuario autenticado
@@ -36,6 +40,8 @@ public class PedidoService {
         Pedido pedido = pedidoRepository.findById(id_pedido)
                 .orElseThrow(() -> new EntityNotFoundException("Pedido no encontrado"));
 
+        Cliente cliente = clienteRepository.findClienteById(pedido.getCliente().getId_cliente());
+
         // Verificar que el pedido pertenece al usuario autenticado
         if (!pedido.getUsuario().getId_usuario().equals(usuario.getId_usuario())) {
             throw new RuntimeException("Acceso denegado: el pedido no pertenece al usuario autenticado");
@@ -46,7 +52,13 @@ public class PedidoService {
         pedidoDTO.setId_pedido(pedido.getId());
         pedidoDTO.setId_usuario(usuario.getId_usuario());
         pedidoDTO.setFecha_pedido(pedido.getFecha_pedido());
-        pedidoDTO.setEstado(pedido.getEstado());
+
+        pedidoDTO.setId_cliente(cliente.getId_cliente());
+        pedidoDTO.setNombreCliente(cliente.getNombre());
+        pedidoDTO.setApelldioCliente(cliente.getApellido());
+        pedidoDTO.setEmailCliente(cliente.getCliente_email());
+        pedidoDTO.setDireccionCliente(cliente.getCliente_direccion());
+        pedidoDTO.setTelefonoCliente(cliente.getTelefono());
 
         // Obtener los detalles del pedido y convertirlos a DetallePedidoDTO
         List<DetallePedidoDTO> detallesDTO = pedido.getDetallePedido()
@@ -63,7 +75,7 @@ public class PedidoService {
                 .collect(Collectors.toList());
 
         // Asignar los detalles al PedidoDTO
-        pedidoDTO.setDetalles(detallesDTO);
+        pedidoDTO.setDetallePedidoDTOS(detallesDTO);
 
         return pedidoDTO;
     }
@@ -74,10 +86,12 @@ public class PedidoService {
         Usuario usuario = usuarioRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
+        Cliente cliente = clienteRepository.findClienteById(pedidoDTO.getId_cliente());
+
         // Crear un nuevo objeto de Pedido a partir del PedidoDTO
         Pedido pedido = new Pedido();
         pedido.setFecha_pedido(LocalDateTime.now());
-        pedido.setEstado(pedidoDTO.getEstado());
+        pedido.setCliente(cliente);
         pedido.setUsuario(usuario);
 
         // Guardar el pedido en el repositorio

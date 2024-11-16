@@ -21,9 +21,6 @@ public class Pedido {
     @Column(name = "fecha_pedido", nullable = false)
     private LocalDateTime fecha_pedido;
 
-    @Column(name = "estado", nullable = false)
-    private String estado;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario", nullable = false)
     @JsonIgnore
@@ -32,6 +29,12 @@ public class Pedido {
     @OneToOne(mappedBy = "pedido", cascade = CascadeType.ALL)
     @JsonIgnore
     private Factura factura;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_cliente", referencedColumnName = "id_cliente", nullable = false)
+    @JsonIgnore
+    @ToString.Exclude
+    private Cliente cliente;
 
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
     @JsonIgnore

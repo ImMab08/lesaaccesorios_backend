@@ -42,6 +42,6 @@ public class Cliente {
 
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
     @JsonIgnore
-    private List<Factura> factura;
+    private List<Pedido> pedido;
 
 }

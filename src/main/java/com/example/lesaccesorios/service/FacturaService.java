@@ -50,14 +50,6 @@ public class FacturaService {
         facturaDTO.setFecha_factura(factura.getFecha_factura());
         facturaDTO.setTotal(factura.getTotal());
 
-        // Obtener información adicional
-        if (factura.getCliente() != null) {
-            facturaDTO.setId_cliente(factura.getCliente().getId_cliente());
-            facturaDTO.setNombre_cliente(factura.getCliente().getNombre());
-            facturaDTO.setApellido_cliente(factura.getCliente().getApellido());
-        }
-
-
         // Obtener detalles del pedido
         List<DetallePedido> detallesPedido = detallePedidoRepository.findByPedidoId(factura.getPedido().getId());
         List<DetallePedidoDTO> detallesDTO = detallesPedido.stream().map(detalle -> {
@@ -113,7 +105,6 @@ public class FacturaService {
         factura.setPedido(pedido);    // Asociamos el pedido
         factura.setFecha_factura(LocalDateTime.now());  // Fecha actual
         factura.setTotal(totalFactura);  // Total calculado
-        factura.setCliente(cliente);  // Cliente asociado (opcional)
 
         // Guardar la factura en la base de datos
         return facturaRepository.save(factura);

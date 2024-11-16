@@ -33,10 +33,4 @@ public class Factura {
     @JsonIgnore
     private Pedido pedido;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_cliente", referencedColumnName = "id_cliente", nullable = true)
-    @JsonIgnore
-    private Cliente cliente;
-
-
 }
