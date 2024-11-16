@@ -18,10 +18,10 @@ public class FacturaController {
     private FacturaService facturaService;
 
     // Obtener una factura por su ID
-    @GetMapping("{id}")
-    public ResponseEntity<?> getFacturaById(@PathVariable Integer id, Authentication authentication) {
+    @GetMapping("usuario/{id_factura}")
+    public ResponseEntity<?> getFacturaById(@PathVariable("id_factura") int id_factura, Authentication authentication) {
         try {
-            FacturaDTO facturaDTO = facturaService.getFacturaById(id, authentication);
+            FacturaDTO facturaDTO = facturaService.getFacturaById(id_factura, authentication);
             return new ResponseEntity<>(facturaDTO, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
