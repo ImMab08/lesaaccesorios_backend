@@ -18,6 +18,11 @@ public class UsuarioController {
     @Autowired
     UsuarioService usuarioService;
 
+    @GetMapping("settings")
+    public UsuarioDTO getUsuario (Authentication authentication) {
+        return usuarioService.getUsuario(authentication);
+    }
+
     // Obtener información del usuario.
     @GetMapping("info")
     public ResponseEntity<?> getUsuarioInfo(Authentication authentication) {
